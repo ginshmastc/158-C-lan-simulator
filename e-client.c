@@ -23,6 +23,12 @@
 double get_time_ms();
 int expBackOff(int lambda, int something);
 
+int randomNumber(int max)
+{
+   double f = ((double)rand() / (double)max);
+   return (0.000001 + f);
+}
+
 int main(int argc, char *argv[])
 {
    //check args
@@ -76,6 +82,7 @@ int main(int argc, char *argv[])
    //main loop, sends a packet, waits for an ack
    for (i = 0; i < TIMESLOTS; i++)
    {
+      srand(time(NULL));
       if (waittime == 0)
       {
          printf("Sending packet %d\n", (success+1));
@@ -133,8 +140,9 @@ double get_time_ms()
 
 int expBackOff(int lambda, int something)
 {
-   //algorithm goes here
-   return 0;
+   double u = randomNumber(1);
+   double logu = log10(u);
+   return (-1*lambda*logu);
 }
 
 
